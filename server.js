@@ -9,6 +9,7 @@ const allBooksController = require('./controllers/allBooksController');
 const signupController = require('./controllers/signupController.js');
 const signinController = require('./controllers/signinController.js');
 const searchController = require('./controllers/searchController.js');
+const bookController = require('./controllers/bookController.js');
 
 const app = express();
 
@@ -43,6 +44,10 @@ app.get('/search', (req, res, next) => {
     next();
 }, searchController.searchBooks);
 
+app.get('/book/:bookId', (req, res, next) => {
+    req.pool = pool;
+    next();
+}, bookController.book);
 
 pool.on('error', (err, client) => {
     console.error('Unexpected error on idle client', err);
