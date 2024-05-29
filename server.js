@@ -10,6 +10,7 @@ const signupController = require('./controllers/signupController.js');
 const signinController = require('./controllers/signinController.js');
 const searchController = require('./controllers/searchController.js');
 const bookController = require('./controllers/bookController.js');
+const lendBookController = require('./controllers/lendBookController.js');
 
 const app = express();
 
@@ -32,6 +33,11 @@ dotenv.config();
 // POST 
 app.post("/signup", signupController.signup);
 app.post("/signin", signinController.signin);
+
+app.post("/lend-book", (req, res, next) => {
+    req.pool = pool;
+    next();
+}, lendBookController.lendBook);
 
 // GET
 app.get('/all', (req, res, next) => {
