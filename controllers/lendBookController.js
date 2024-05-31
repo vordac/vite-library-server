@@ -17,7 +17,6 @@ const lendBook = async (req, res) => {
         );
         const reader_full_name = readerResult.rows[0].full_name;
 
-        // Step 3-5: Calculate loan_date, loan_days, and return_date
         const currentDate = new Date();
         currentDate.setHours(currentDate.getHours() + 3); // Ukrainian timezone is UTC+3
         const loan_date = currentDate.toISOString().slice(0, 10);
