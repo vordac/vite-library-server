@@ -30,16 +30,17 @@ const lendBook = async (req, res) => {
 
         // Step 6: Insert data into library.book_formulary
         await pool.query(
-            "INSERT INTO library.book_formulary (employee_full_name, book_isbn, loan_date, loan_days, return_date, reader_full_name) VALUES ($1, $2, $3, $4, $5, $6)",
+            "INSERT INTO library.book_formulary (employee_full_name, book_isbn, loan_date, loan_days, return_date, reader_full_name, address) VALUES ($1, $2, $3, $4, $5, $6, $7)",
             [
-                employee_full_name,
-                book_isbn,
-                loan_date,
-                loan_days,
-                formattedReturnDate,
-                reader_full_name,
+              req.body.employee_name, 
+              book_isbn,
+              loan_date,
+              loan_days,
+              formattedReturnDate,
+              reader_full_name,
+              req.body.address, // use the address value from the request body
             ]
-        );
+          );
 
         // Commit transaction
         await pool.query("COMMIT");
