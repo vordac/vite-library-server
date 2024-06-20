@@ -9,6 +9,7 @@ const lendBook = async (req, res) => {
             "SELECT full_name FROM library.employee WHERE personal_id = $1",
             [employee_personal_id]
         );
+
         const employee_full_name = employeeResult.rows[0].full_name;
 
         const readerResult = await pool.query(
@@ -32,7 +33,7 @@ const lendBook = async (req, res) => {
         await pool.query(
             "INSERT INTO library.book_formulary (employee_full_name, book_isbn, loan_date, loan_days, return_date, reader_full_name, address) VALUES ($1, $2, $3, $4, $5, $6, $7)",
             [
-              req.body.employee_name, 
+              employee_full_name, 
               book_isbn,
               loan_date,
               loan_days,

@@ -11,6 +11,8 @@ const signinController = require('./controllers/signinController.js');
 const searchController = require('./controllers/searchController.js');
 const bookController = require('./controllers/bookController.js');
 const lendBookController = require('./controllers/lendBookController.js');
+const myBooksController = require('./controllers/myBooksController.js');
+const deleteFormularController = require('./controllers/deleteFormularController.js');
 
 const app = express();
 
@@ -56,10 +58,24 @@ app.get('/book/:bookId', (req, res, next) => {
     next();
 }, bookController.book);
 
+app.get('/my-books', (req, res, next) => {
+    req.pool = pool;
+    next();
+}, myBooksController.myBooks);
+
 pool.on('error', (err, client) => {
     console.error('Unexpected error on idle client', err);
     process.exit(-1);
 });
+
+// DELETE
+
+app.delete('/formulars/:id', deleteFormularController.deleteFormular);
+
+// app.delete('/formulars/:formularId', (req, res, next) => {
+//     req.pool = pool;
+//     next();
+// }, bookController.book);
 
 pool.connect((err, client, done) => {
     if (err) {
